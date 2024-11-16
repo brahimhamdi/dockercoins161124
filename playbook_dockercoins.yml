@@ -1,0 +1,4 @@
+- hosts: control-plane
+  gather_facts: false
+  roles:
+  - dockercoins
