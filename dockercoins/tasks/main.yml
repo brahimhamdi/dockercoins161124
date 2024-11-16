@@ -1,0 +1,21 @@
+---
+# tasks file for dockercoins
+- name: Deploy Dockercois app
+  shell: |
+    kubectl create ns dockercoins
+    kubectl apply -f https://gitlab.com/brahimhamdi/formation_devops_tools_eng_26102024/-/raw/master/Labs/dockercoins.yaml -n dockercoins
+    sleep 30
+    kubectl get all -n dockercoins
+  register: dockercoins_deploy
+  tags:
+  - deploy_dockercoins
+  notify: Verify Dockercoins deployment
+- name: Delete Dockercoins
+  shell: |
+    kubectl delete -f https://gitlab.com/brahimhamdi/formation_devops_tools_eng_26102024/-/raw/master/Labs/dockercoins.yaml -n dockercoins
+    sleep 30
+    kubectl get all -n dockercoins
+    kubectl delete ns dockercoins
+  tags:
+  - delete_dockercoins
+
